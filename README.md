@@ -1,5 +1,7 @@
 # gitintern-internshipsPlatform
-Note: only first piece of the project code available: (i write every line so it need time to be done)
+(i write every line so it need time to be done).
+
+Note: only first piece of the project code available: 
 registration system (company, intern) 
 login system (one page handle both based on role)
 profile page system (view and edit (company, intern))
