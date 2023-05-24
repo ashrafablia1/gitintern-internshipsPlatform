@@ -1,4 +1,4 @@
-# gitintern-internshipsPlatform
+# gitintern - Internships Platform
 (i write every line so it need time to be done).
 
 Note: only first piece of the project code available: 
