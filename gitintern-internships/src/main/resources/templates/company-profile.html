@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Company Profile</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    h1 {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    form {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    p {
+        margin-top: 10px;
+    }
+
+    strong {
+        font-weight: bold;
+    }
+
+    span {
+        display: inline-block;
+        margin-left: 10px;
+    }
+
+    .button {
+        display: block;
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #007bff; /* Nice blue color */
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        width: 100%;
+        max-width: 200px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .button:hover {
+        background-color: #0056b3; /* Darker shade of blue on hover */
+    }
+
+    /* Media Queries */
+    @media only screen and (max-width: 600px) {
+        form {
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        .button {
+            margin-left: 0;
+            margin-right: 0;
+        }
+    }
+</style>
+</head>
+<body>
+<h1>Company Profile</h1>
+
+<div th:if="${companyProfile != null}">
+    <form>
+        <p>
+            <strong>Company Name:</strong>
+            <span th:text="${companyProfile.companyName}"></span>
+            <span th:unless="${companyProfile.companyName != null}">No value available</span>
+        </p>
+        <p>
+        <strong>company Email:</strong>
+        <span th:text="${companyProfile.email}"></span>
+        <span th:unless="${companyProfile.email != null}">No value available</span>
+       </p>
+        <p>
+            <strong>Company Link:</strong>
+            <a id="companyLink" href="" th:text="${companyProfile.companyLink}"></a>
+            <span th:unless="${companyProfile.companyLink != null}">No value available</span>
+        </p>
+
+        <p>
+            <strong>Phone Number:</strong>
+            <span th:text="${companyProfile.phoneNumber}"></span>
+            <span th:unless="${companyProfile.phoneNumber != null}">No value available</span>
+        </p>
+        <p>
+            <strong>City:</strong>
+            <span th:text="${companyProfile.city}"></span>
+            <span th:unless="${companyProfile.city != null}">No value available</span>
+        </p>
+        <button id="submitLink" class="button" type="button">Edit Profile</button>
+        <button id="homepage" class="button" type="button">Home Page</button>
+    </form>
+
+</div>
+
+<script>
+    // Get the URL of the current page
+    let currentUrl = window.location.href;
+
+    // Extract the internId from the URL
+    let internId = currentUrl.split('/').pop();
+
+    // Create the new URL for the Submit link
+    let submitUrl = '/company/profile/' + internId + '/edit';
+
+    // Update the href attribute of the Submit link
+    document.getElementById('submitLink').addEventListener('click', function() {
+        window.location.href = submitUrl;});
+
+
+
+    let companyLink = document.getElementById('companyLink');
+    let companyLinkText = companyLink.textContent;
+    companyLink.setAttribute('href', companyLinkText);
+    companyLink.setAttribute('target', '_blank');
+
+    let homePageUrl = '/company/homepage';
+    document.getElementById('homepage').addEventListener('click', function() {
+        window.location.href = homePageUrl;});
+
+</script>
+
+</body>
+</html>

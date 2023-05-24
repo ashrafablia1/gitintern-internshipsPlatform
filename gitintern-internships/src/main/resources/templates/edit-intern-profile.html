@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Intern Profile</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    form {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      max-width: 1000px;
+      width: 90%;
+    }
+
+    h1 {
+      color: #333;
+      text-align: center;
+    }
+
+    p {
+      margin: 0 0 10px;
+    }
+
+    strong {
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"] {
+      width: 100%;
+      padding: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    span {
+      color: #ff0000;
+    }
+
+    input[type="submit"] {
+      padding: 10px 20px;
+      background-color: #3498db;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      border-radius: 4px;
+      width: 100%;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #2980b9;
+    }
+
+    @media only screen and (max-width: 600px) {
+      form {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+<div th:if="${internProfile != null}">
+  <form th:action="@{/intern/profile/{internId}/edit(internId=${internProfile.getIntern().getUserId()})}" method="post" th:object="${internProfile}">
+    <p>
+      <strong>First Name:</strong>
+      <input type="text" th:field="*{firstName}" />
+      <span th:if="${internProfile.firstName == null}">No value available</span>
+    </p>
+    <p>
+      <strong>Last Name:</strong>
+      <input type="text" th:field="*{lastName}" />
+      <span th:if="${internProfile.lastName == null}">No value available</span>
+    </p>
+    <p>
+      <strong>Email:</strong>
+      <input type="email" th:field="*{email}" />
+      <span th:if="${internProfile.email == null}">No value available</span>
+    </p>
+    <p>
+      <strong>Phone Number:</strong>
+      <input type="tel" th:field="*{phoneNumber}" />
+      <span th:if="${internProfile.phoneNumber == null}">No value available</span>
+    </p>
+    <p>
+      <strong>City:</strong>
+      <input type="text" th:field="*{city}" />
+      <span th:if="${internProfile.city == null}">No value available</span>
+    </p>
+    <p><input type="submit" value="Submit"/></p>
+  </form>
+</div>
+
+
+
+</body>
+</html>
