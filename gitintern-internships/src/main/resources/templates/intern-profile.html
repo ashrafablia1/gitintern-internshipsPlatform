@@ -3,70 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <title>Intern Profile</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-    }
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
 
-    h1 {
-        text-align: center;
-        margin-top: 20px;
-    }
+        h1, h2 {
+            text-align: center;
+            margin-top: 20px;
+        }
 
-    form {
-        margin-top: 20px;
-        text-align: center;
-    }
-
-    p {
-        margin-top: 10px;
-    }
-
-    strong {
-        font-weight: bold;
-    }
-
-    span {
-        display: inline-block;
-        margin-left: 10px;
-    }
-
-    .button {
-        display: block;
-        margin-top: 20px;
-        padding: 10px 20px;
-        font-size: 16px;
-        background-color: #007bff; /* Nice blue color */
-        color: #fff;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-        width: 100%;
-        max-width: 200px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .button:hover {
-        background-color: #0056b3; /* Darker shade of blue on hover */
-    }
-
-    /* Media Queries */
-    @media only screen and (max-width: 600px) {
         form {
-            width: 80%;
-            margin: 0 auto;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        p {
+            margin-top: 10px;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        span {
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
         }
 
         .button {
-            margin-left: 0;
-            margin-right: 0;
+            margin: 0 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff; /* Nice blue color */
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            max-width: 200px;
         }
-    }
-</style>
+
+        .button:hover {
+            background-color: #0056b3; /* Darker shade of blue on hover */
+        }
+
+        .internships-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            margin-top: 40px;
+        }
+
+        .internship-box {
+            margin: 10px;
+            padding: 20px;
+            background-color: #f0f0f0; /* Light gray background color */
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 500px;
+        }
+
+        /* Media Queries */
+        @media only screen and (max-width: 600px) {
+            form {
+                width: 80%;
+                margin: 0 auto;
+            }
+        }
+    </style>
 </head>
 <body>
 <h1>Intern Profile</h1>
@@ -99,14 +114,23 @@
             <span th:text="${internProfile.city}"></span>
             <span th:unless="${internProfile.city != null}">No value available</span>
         </p>
-        <button id="submitLink" class="button" type="button">Edit Profile</button>
-
     </form>
 
-    <button id="resumeLink" class="button" type="button">View Resume</button>
-    <button id="newResumeLink" class="button" type="button">Upload New Resume</button>
-    <button id="homepage" class="button" type="button">Home Page</button>
+    <div class="button-container">
+        <button id="submitLink" class="button" type="button">Edit Profile</button>
+        <button id="homepage" class="button" type="button">Home Page</button>
+    </div>
 </div>
+
+
+<section>
+    <h2>Your Internship Applications</h2>
+    <div class="centered" th:each="internInternshipApplication : ${internInternshipApplications}">
+        <a th:href="@{/internship/application/{internInternshipApplicationId}(internInternshipApplicationId=${internInternshipApplication.getId()})}">
+            <h3 th:text="${internInternshipApplication.internship.title}"></h3>
+        </a>
+    </div>
+</section>
 
 <script>
     // Get the URL of the current page
@@ -120,20 +144,13 @@
 
     // Update the href attribute of the Submit link
     document.getElementById('submitLink').addEventListener('click', function() {
-        window.location.href = submitUrl;});
-    // Create the new URL for the Resume link
-    let resumeUrl = '/intern/' + internId + '/resume';
-    document.getElementById('resumeLink').addEventListener('click', function() {
-        window.location.href = resumeUrl;});
-    // Create the new URL for the new Resume upload link
-    let newResumeUrl = '/intern/' + internId + '/resume/new';
-      document.getElementById('newResumeLink').addEventListener('click', function() {
-            window.location.href = newResumeUrl; });
+        window.location.href = submitUrl;
+    });
 
-
-        let homePageUrl = '/intern/homepage';
-        document.getElementById('homepage').addEventListener('click', function() {
-        window.location.href = homePageUrl;});
+    let homePageUrl = '/intern/homepage';
+    document.getElementById('homepage').addEventListener('click', function() {
+        window.location.href = homePageUrl;
+    });
 
 </script>
 

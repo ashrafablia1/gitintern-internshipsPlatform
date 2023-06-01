@@ -49,5 +49,11 @@ public class InternProfile {
         this.email = intern.getEmail();
     }
 
-
+    public InternProfile(String firstName, String lastName, String email, String phoneNumber, String city) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.city = city;
+    }
 }

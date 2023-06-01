@@ -74,7 +74,7 @@
 </head>
 <body>
 <div th:if="${internProfile != null}">
-  <form th:action="@{/intern/profile/{internId}/edit(internId=${internProfile.getIntern().getUserId()})}" method="post" th:object="${internProfile}">
+  <form th:action="@{/intern/profile/{internId}/edit(internId=${internId})}" method="post" th:object="${internProfile}">
     <p>
       <strong>First Name:</strong>
       <input type="text" th:field="*{firstName}" />
@@ -103,8 +103,6 @@
     <p><input type="submit" value="Submit"/></p>
   </form>
 </div>
-
-
 
 </body>
 </html>

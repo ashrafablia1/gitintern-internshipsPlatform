@@ -3,35 +3,45 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1" name="viewport">
-
   <title>Company</title>
 
   <style>
+    /* Reset styles */
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
     }
 
+    /* Container Styles */
     .container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      display: grid;
+      place-items: center;
       height: 100vh;
     }
 
+    /* Content Styles */
     .content {
       text-align: center;
     }
 
+    /* Heading Styles */
     h1 {
       margin-bottom: 20px;
     }
 
     /* Link Styles */
+    .link-buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
     .link-button {
       display: block;
-      margin: 10px auto;
+      margin: 10px;
       padding: 10px 20px;
       background-color: #007bff;
       color: #fff;
@@ -47,19 +57,72 @@
 
     /* Media Queries */
     @media only screen and (max-width: 600px) {
+      /* Adjust container margin on smaller screens */
       .container {
         margin-top: 20px;
       }
 
+      /* Reduce heading font size */
       h1 {
         font-size: 24px;
         margin-bottom: 10px;
       }
 
+      /* Make link buttons full width */
       .link-button {
         margin: 10px auto;
         width: 100%;
       }
+    }
+
+    /* Section Styles */
+    section {
+      margin-top: 20px;
+    }
+
+    /* Heading Styles */
+    h2 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    /* Internship Box Styles */
+    .internship-boxes {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .internship-box {
+      width: 100%;
+      max-width: 400px;
+      padding: 20px;
+      margin-bottom: 20px;
+      background-color: #f7f7f7;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .internship-link {
+      text-decoration: none;
+      color: #007bff;
+    }
+
+    .internship-title {
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+
+    .internship-description {
+      margin-bottom: 10px;
+    }
+
+    /* "View More" Link Styles */
+    .view-more {
+      display: block;
+      margin-top: 10px;
+      font-size: 16px;
+      color: #007bff;
+      text-decoration: none;
     }
   </style>
 </head>
@@ -69,14 +132,29 @@
     <div class="col-6 mx-auto">
       <h1>Welcome</h1>
 
-      <div class="mt-2">Ashraf Ablia Company</div>
-      <div class="mt-5"><a class="link-button" th:href="@{/company/profile}">Company Profile</a></div>
-
-      <div class="mt-5"><a class="link-button" th:href="@{/logout}">Logout</a></div>
+      <div class="link-buttons">
+        <a class="link-button" th:href="@{/company/profile}">Company Profile</a>
+        <a class="link-button" th:href="@{/company/posting/internship}">Post New Internship</a>
+        <a class="link-button" th:href="@{/logout}">Logout</a>
+      </div>
     </div>
   </div>
+
+  <section>
+    <h2>All Internships</h2>
+    <div class="internship-boxes">
+      <div class="internship-box" th:each="internship, iterStat : ${internships}" th:if="${iterStat.index} &lt; 10">
+        <a class="internship-link" th:href="@{/internship/{internshipId}(internshipId=${internship.internshipId})}">
+          <h3 class="internship-title" th:text="${internship.title}"></h3>
+        </a>
+        <p class="internship-description" th:text="${internship.description}"></p>
+        <!-- Display other relevant internship details -->
+      </div>
+    </div>
+    <div th:if="${internships.size() > 10}">
+      <a class="view-more" th:href="@{/internship/all}">View More</a>
+    </div>
+  </section>
 </div>
-
-
 </body>
 </html>

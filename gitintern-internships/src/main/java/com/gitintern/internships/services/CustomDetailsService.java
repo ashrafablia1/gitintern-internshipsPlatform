@@ -3,6 +3,7 @@ package com.gitintern.internships.services;
 
 import com.gitintern.internships.models.Role;
 import com.gitintern.internships.models.User;
+import com.gitintern.internships.services.servicesInterfaces.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

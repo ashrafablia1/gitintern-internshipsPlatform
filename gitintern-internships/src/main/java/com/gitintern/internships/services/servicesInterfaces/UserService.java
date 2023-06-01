@@ -1,8 +1,9 @@
-package com.gitintern.internships.services;
+package com.gitintern.internships.services.servicesInterfaces;
 
 
 import com.gitintern.internships.dto.CompanyDto;
 import com.gitintern.internships.dto.InternDto;
+import com.gitintern.internships.models.Company;
 import com.gitintern.internships.models.User;
 import com.gitintern.internships.models.UserConfirmationToken;
 
@@ -23,4 +24,8 @@ public interface UserService {
     void sendConfirmationMail(String userMail, String token);
 
     Long extractId();
+
+    User extractUser();
+
+    User findById(Long userId);
 }

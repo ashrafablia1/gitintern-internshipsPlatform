@@ -1,5 +1,7 @@
 package com.gitintern.internships.dto;
 
+import com.gitintern.internships.models.Intern;
+import com.gitintern.internships.models.InternProfile;
 import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,6 +13,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class InternProfileDto {
+
+    private Intern intern;
 
     private String firstName;
 
@@ -24,4 +28,11 @@ public class InternProfileDto {
     private String city;
 
 
+    public InternProfileDto(InternProfile internProfile ) {
+        this.firstName = internProfile.getFirstName();
+        this.lastName = internProfile.getLastName();
+        this.email = internProfile.getEmail();
+        this.phoneNumber = internProfile.getPhoneNumber();
+        this.city = internProfile.getCity();
+    }
 }

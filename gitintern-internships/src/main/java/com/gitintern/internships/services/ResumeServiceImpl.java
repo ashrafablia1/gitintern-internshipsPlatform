@@ -4,6 +4,7 @@ import com.gitintern.internships.models.Intern;
 import com.gitintern.internships.models.Resume;
 import com.gitintern.internships.repositories.InternRepository;
 import com.gitintern.internships.repositories.ResumeRepository;
+import com.gitintern.internships.services.servicesInterfaces.ResumeService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ public class ResumeServiceImpl implements ResumeService {
 
     @Override
     public void saveResume(Long userId, Resume resume) {
-        Optional<Resume> optionalResume = getResume(userId);
+        Optional<Resume> optionalResume = Optional.ofNullable(getResumeByInternId(userId));
         if (optionalResume.isPresent()) {
             Resume existResume = optionalResume.get();
             existResume.setFileName(resume.getFileName());
@@ -35,10 +36,21 @@ public class ResumeServiceImpl implements ResumeService {
     }
 
     @Override
-    public Optional<Resume> getResume(Long userId) {
+    public Resume getResumeByInternId(Long userId) {
         Intern intern = internRepository.findById(userId).get();
         Optional<Resume> resume = resumeRepository.findResumeByIntern(intern);
-        return resume;
+        return resume.get();
+    }
+
+    @Override
+    public Resume getResumeByResumeId(Long resumeId) {
+        return resumeRepository.findById(resumeId).orElse(null);
+    }
+
+    @Override
+    public Long getResumeId(Long userId) {
+        Intern intern = internRepository.findById(userId).get();
+        return resumeRepository.findResumeByIntern(intern).get().getResumeId();
     }
 
     @Override

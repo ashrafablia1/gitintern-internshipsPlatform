@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+
+    h3 {
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    a {
+        text-decoration: none;
+        color: #007bff;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    .div-container {
+        margin-bottom: 20px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #f0f0f0;
+    }
+
+</style>
+</head>
+<body>
+
+<div th:each="internshipApplication : ${internshipApplications}" class="div-container">
+    <a th:href="@{/internship/application/{internshipApplicationId}(internshipApplicationId=${internshipApplication.getId()})}">
+        <h3 th:text="${internshipApplication.firstName}+' ' + ${internshipApplication.lastName} + '  ' + ${internshipApplication.getStatus()} "></h3>
+    </a>
+    </div>
+</body>
+</html>

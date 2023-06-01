@@ -6,7 +6,7 @@ import com.gitintern.internships.dto.InternDto;
 import com.gitintern.internships.models.User;
 import com.gitintern.internships.models.UserConfirmationToken;
 import com.gitintern.internships.services.ConfirmationTokenServiceImpl;
-import com.gitintern.internships.services.UserService;
+import com.gitintern.internships.services.servicesInterfaces.UserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;

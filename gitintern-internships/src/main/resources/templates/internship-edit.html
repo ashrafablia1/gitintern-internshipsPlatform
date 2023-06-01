@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Internship</title>
+    <style>
+        /* Apply general styles to the form */
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        /* Style the form heading */
+        h2 {
+            text-align: center;
+        }
+
+        /* Style the form labels */
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* Style the form inputs */
+        input[type="text"],
+        textarea,
+        button {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        /* Style the submit button */
+        button[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* Style the checkboxes */
+        input[type="checkbox"] {
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+
+        /* Apply some spacing between form elements */
+        div {
+            margin-bottom: 15px;
+        }
+
+    </style>
+
+</head>
+<body>
+<h2>Create Internship</h2>
+<form th:action="@{/company/internship/edit/{internshipId}(internshipId=${internship.internshipId})}" method="post" th:object="${internship}">
+    <div>
+        <label>Title:</label>
+        <label>
+            <input type="text" th:field="*{title}" required />
+        </label>
+    </div>
+    <div>
+        <label>Location:</label>
+        <label>
+            <input type="text" th:field="*{location}" required />
+        </label>
+    </div>
+    <div>
+        <label>Duration:</label>
+        <label>
+            <input type="text" th:field="*{duration}" required />
+        </label>
+    </div>
+    <div>
+        <label>Description:</label>
+        <label>
+            <textarea th:field="*{description}" required></textarea>
+        </label>
+    </div>
+    <div>
+        <label>Requirements:</label>
+        <label>
+            <textarea th:field="*{requirements}" required></textarea>
+        </label>
+    </div>
+    <div>
+        <label>Responsibilities:</label>
+        <label>
+            <textarea th:field="*{responsibilities}" required></textarea>
+        </label>
+    </div>
+    <div>
+        <label>Qualifications:</label>
+        <label>
+            <textarea th:field="*{qualifications}" required></textarea>
+        </label>
+    </div>
+    <div>
+        <label>Application Deadline:</label>
+        <label>
+            <input type="text" th:field="*{applicationDeadline}" required />
+        </label>
+    </div>
+    <div>
+        <label>Contact Email:</label>
+        <label>
+            <input type="email" th:field="*{contactEmail}" placeholder="not required" />
+        </label>
+    </div>
+    <div>
+        <label>Is Paid:</label>
+        <label>
+            <input type="checkbox" th:field="*{paid}" />
+        </label>
+    </div>
+    <div>
+        <label>Number of Positions:</label>
+        <label>
+            <input type="number" th:field="*{numberOfPositions}" required />
+        </label>
+    </div>
+    <div>
+        <label>Is Remote:</label>
+        <label>
+            <input type="checkbox" th:field="*{remote}" />
+        </label>
+    </div>
+    <div>
+        <button type="submit">save changes</button>
+    </div>
+</form>
+</body>
+</html>

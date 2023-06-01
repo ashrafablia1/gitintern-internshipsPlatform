@@ -5,6 +5,7 @@ import com.gitintern.internships.models.Intern;
 import com.gitintern.internships.models.InternProfile;
 import com.gitintern.internships.repositories.InternProfileRepository;
 import com.gitintern.internships.repositories.InternRepository;
+import com.gitintern.internships.services.servicesInterfaces.InternProfileService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -22,12 +23,19 @@ public class internProfileServiceImpl implements InternProfileService {
 
 
     @Override
-    public InternProfile getProfile(Long internId) {
+    public InternProfileDto getProfile(Long internId) {
         Optional<Intern> optionalIntern = internRepository.findById(internId);
         if (optionalIntern.isPresent()) {
             Intern intern = optionalIntern.get();
             Optional<InternProfile> optionalInternProfile = Optional.ofNullable(findProfileByInternId(internId));
-            return optionalInternProfile.orElseGet(() -> internProfileRepository.save(new InternProfile(intern)));
+            if (optionalInternProfile.isPresent()) {
+                InternProfile internProfile = optionalInternProfile.get();
+                return new InternProfileDto(internProfile);
+            } else {
+                createProfile(intern);
+                return new InternProfileDto(findProfileByInternId(internId));
+            }
+
         }
         throw new UsernameNotFoundException("Intern not found");
     }
@@ -67,7 +75,6 @@ public class internProfileServiceImpl implements InternProfileService {
             internProfileRepository.save(existInternProfile);
 
         }
-        throw new UsernameNotFoundException("Intern not found");
     }
 
 

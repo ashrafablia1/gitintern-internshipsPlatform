@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>gitintern</title>
+    <style>
+        body {
+            text-align: center;
+        }
+
+        .button-group {
+            margin-bottom: 20px;
+        }
+
+        .button-group a {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            background-color: blue;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        section {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+        section > div {
+            width: 45%;
+            padding: 20px;
+            margin: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            text-align: left;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            margin-bottom: 10px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="button-group">
+    <a href="/login">Login</a> |
+    <a href="/registration/interns">Register as Intern</a>
+    <a href="/registration/companies">Register as company</a>
+</div>
+
+<section>
+    <h2 class="section-title">All Internships</h2> <br>
+    <div th:if="${internships.size() > 0}">
+        <div th:each="internship, iterStat : ${internships}" th:if="${iterStat.index} &lt; 10">
+            <a th:href="@{/internship/{internshipId}(internshipId=${internship.internshipId})}">
+                <h3 th:text="${internship.title}"></h3>
+            </a>
+            <p th:text="${internship.description}"></p>
+            <!-- Display other relevant internship details -->
+        </div>
+        <div th:if="${internships.size() > 10}">
+            <a th:href="@{/internship/all}">View More</a>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

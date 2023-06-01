@@ -5,6 +5,7 @@ import com.gitintern.internships.models.CompanyProfile;
 import com.gitintern.internships.repositories.CompanyProfileRepository;
 import com.gitintern.internships.repositories.CompanyRepository;
 import com.gitintern.internships.repositories.UserRepository;
+import com.gitintern.internships.services.servicesInterfaces.CompanyProfileService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -59,7 +60,7 @@ public class CompanyProfileServiceImpl implements CompanyProfileService {
             companyProfileRepository.save(existCompanyProfile);
 
         }
-        throw new UsernameNotFoundException("Company not found");
+
     }
 
 

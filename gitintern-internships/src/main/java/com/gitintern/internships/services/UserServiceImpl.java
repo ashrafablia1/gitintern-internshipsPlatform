@@ -5,6 +5,10 @@ import com.gitintern.internships.dto.CompanyDto;
 import com.gitintern.internships.dto.InternDto;
 import com.gitintern.internships.models.*;
 import com.gitintern.internships.repositories.UserRepository;
+import com.gitintern.internships.services.servicesInterfaces.CompanyProfileService;
+import com.gitintern.internships.services.servicesInterfaces.InternProfileService;
+import com.gitintern.internships.services.servicesInterfaces.ResumeService;
+import com.gitintern.internships.services.servicesInterfaces.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.Authentication;
@@ -106,6 +110,19 @@ public class UserServiceImpl implements UserService {
         String username = authentication.getName();
         User user = userRepository.findByEmail(username);
         return user.getUserId();
+    }
+
+    //extractUser() method is used to get the user that is currently logged in
+    @Override
+    public User extractUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        return userRepository.findByEmail(username);
+    }
+
+    @Override
+    public User findById(Long companyId) {
+        return userRepository.findById(companyId).get();
     }
 
 

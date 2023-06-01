@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Internship Application </title>
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+
+    h1 {
+        color: #333;
+    }
+
+    h2 {
+        color: #555;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th, td {
+        padding: 10px;
+        border: 1px solid #ccc;
+    }
+
+    th {
+        background-color: #f0f0f0;
+    }
+
+    a {
+        color: blue;
+        text-decoration: none;
+        margin-right: 10px;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    select {
+        padding: 5px;
+    }
+
+    button {
+        padding: 5px 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+</style>
+<body>
+
+<h1>Internship Application Details </h1>
+<h2>to Internship: <span th:text="${internshipTitle}"></span></h2>
+<table>
+    <tr>
+        <th>First Name</th>
+        <td th:text="${internshipApplication.firstName}"></td>
+    </tr>
+    <tr>
+        <th>Last Name</th>
+        <td th:text="${internshipApplication.lastName}"></td>
+    </tr>
+
+    <tr>
+        <th>Resume</th>
+        <td>
+            <a th:href="${resumeUrl}">view resume</a>
+            <a th:if="${isIntern}" th:href="@{/resume/new}">upload new resume</a>
+        </td>
+    </tr>
+    <tr>
+        <th>Email</th>
+        <td th:text="${internshipApplication.email}"></td>
+    </tr>
+    <tr>
+        <th>Phone Number</th>
+        <td th:text="${internshipApplication.phoneNumber}"></td>
+    </tr>
+    <tr>
+        <th>City</th>
+        <td th:text="${internshipApplication.city}"></td>
+    </tr>
+    <tr>
+        <th>Status</th>
+        <td>
+            <span th:text="${internshipApplication.status}"></span>
+
+            <span th:if="${AcceptedIntern}">We will contact you soon</span>
+
+            <form th:if="${canEdit}" th:action="@{/company/application/{internshipApplicationId}/status(internshipApplicationId=${internshipApplication.getId()})}" method="post">
+                <input type="hidden" name="_method" value="put" />
+                <select name="status">
+                    <option value="Accepted" th:selected="${internshipApplication.status == 'Accepted'}">Accepted</option>
+                    <option value="Rejected" th:selected="${internshipApplication.status == 'Rejected'}">Rejected</option>
+                    <option value="Pending" th:selected="${internshipApplication.status == 'Pending'}">Pending</option>
+                </select>
+                <button type="submit">Update Status</button>
+            </form>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
+

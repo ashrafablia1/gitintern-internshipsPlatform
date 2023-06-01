@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Internship Application</title>
+  <style>
+
+    /* Global styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px auto; /* Center the body horizontally */
+      max-width: 600px; /* Set a maximum width for the content */
+      text-align: center; /* Center the text */
+      line-height: 1.5; /* Add space between lines */
+    }
+
+    h2 {
+      text-align: center; /* Center the heading */
+      color: #333;
+    }
+
+    /* Alerts */
+    .alert {
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 4px;
+    }
+
+    .alert-info {
+      background-color: #e6f0ff;
+      color: #004085;
+      border: 1px solid #b8daff;
+    }
+
+    /* Form */
+    form {
+      margin-top: 20px;
+      text-align: center; /* Center the form */
+    }
+
+    /* Form inputs */
+    .form-input {
+      display: flex; /* Use flexbox for label and input alignment */
+      align-items: center; /* Align items vertically in the center */
+      justify-content: flex-end; /* Align items horizontally to the right */
+      width: 120px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .form-input input[type="text"],
+    .form-input input[type="email"],
+    .form-input input[type="tel"] {
+      padding: 5px;
+      width: 200px;
+      box-sizing: border-box; /* Include padding and border in the width */
+    }
+
+    /* Links */
+    a {
+      color: #007bff;
+      text-decoration: none;
+      margin-right: 10px;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Submit button */
+    button[type="submit"] {
+      padding: 5px 10px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+
+  </style>
+</head>
+<body>
+<h2>Apply to Internship: <span th:text="${internshipTitle}"></span></h2>
+<div th:if="${param.success}">
+  <div class="alert alert-info">
+    Applied successful !!!
+  </div>
+</div>
+<form th:action="@{/intern/internship/{internshipId}/apply(internshipId=${internshipId})}" method="post" th:object="${internProfile}">
+
+
+  <div>
+    <label>First Name:</label>
+    <input type="text" name="firstName" th:value="${internProfile.firstName}" />
+  </div>
+
+  <div>
+    <label>Last Name:</label>
+    <input type="text" name="lastName" th:value="${internProfile.lastName}" />
+  </div>
+
+
+  <div>
+    <label>Email:</label>
+    <input type="email" name="email" th:value="${internProfile.email}" />
+  </div>
+
+  <div>
+    <label>Phone Number:</label>
+    <input type="tel" name="phoneNumber" th:value="${internProfile.phoneNumber}" />
+  </div>
+
+  <div>
+    <label>City:</label>
+    <input type="text" name="city" th:value="${internProfile.city}" />
+  </div>
+  <div>
+    <label>Resume:</label>
+    <a th:href="@{${resumeUrl}}">view Resume</a>
+    <a th:href="@{${uploadNewResumeUrl}}">Upload new Resume</a>
+  </div>
+
+
+  <button type="submit">Submit Application</button>
+</form>
+</body>
+</html>
